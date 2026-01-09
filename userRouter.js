@@ -1,9 +1,9 @@
-const express = require('express');
-const objectId = require("mongodb").ObjectId;
-const mongo = require("./mongoconnect.js");
+import { Router } from 'express';
+import { ObjectId as objectId } from "mongodb";
+import { getDBCollection } from "./mongoconnect.js";
 
-const router = express.Router();
-const usersCollection = mongo.getDBCollection();
+export const router = Router();
+const usersCollection = getDBCollection();
 
 router.get("/:id", async (request, response) => {
     const userId = new objectId(request.params.id);
@@ -75,5 +75,3 @@ router.get("/", async (request, response) => {
     const users = await (await usersCollection).find().toArray();
     response.send(users);
 });
-
-module.exports = router;

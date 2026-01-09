@@ -1,11 +1,9 @@
-const express = require('express');
-const router = require("./userRouter.js")
+import express from 'express';
+import { router } from "./userRouter.js";
 
-const app = express();
+export const app = express();
 
 const jsonParser = express.json();
 app.use(jsonParser);
 
 app.use('/api/users', router);
-
-module.exports = app;

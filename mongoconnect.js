@@ -1,10 +1,10 @@
-const MongoClient = require("mongodb").MongoClient;
+import { MongoClient } from "mongodb";
 
 const url = "mongodb://Sveta:secret@localhost:27017/";
 
 const mongoClient = new MongoClient(url);
 
-exports.getDBCollection = async function() {
+export async function getDBCollection() {
     try {
         await mongoClient.connect();
         const db = mongoClient.db("usersdb");

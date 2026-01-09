@@ -1,0 +1,10 @@
+services:
+  mongodb:
+    image: mongo:4.4.5-bionic
+    container_name: mongodb2
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=Sveta
+      - MONGO_INITDB_ROOT_PASSWORD=secret

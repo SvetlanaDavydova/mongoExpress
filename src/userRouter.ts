@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { ObjectId as objectId } from "mongodb";
-import { getDBCollection } from "./mongoconnect.js";
+import { getDBCollection } from "./mongoconnect";
 
 export const router = Router();
-const usersCollection = getDBCollection();
+const usersCollection= await getDBCollection();
 
 router.get("/:id", async (request, response) => {
     const userId = new objectId(request.params.id);

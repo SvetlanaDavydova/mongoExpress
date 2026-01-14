@@ -3,18 +3,18 @@
     "version": "1.0.0",
     "type": "module",
     "dependencies": {
-        "@types/node": "^25.0.3",
         "crypto": "^1.0.1",
         "express": "^4.18.2",
         "fs": "^0.0.1-security",
         "mongodb": "6.3.0",
         "nodemon": "^3.1.11",
-        "ts-watch": "^1.0.8"
+        "ts-watch": "^1.0.8",
+        "typescript": "^5.9.3"
     },
     "scripts": {
         "start": "nodemon server.js"
     },
     "devDependencies": {
-        "typescript": "^6.0.0-dev.20260109"
+        "@types/express": "^5.0.6"
     }
 }

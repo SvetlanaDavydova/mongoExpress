@@ -1,15 +1,12 @@
 import { Router } from 'express';
-import { ObjectId as objectId } from "mongodb";
-import { getDBCollection } from "./mongoconnect";
+import { createUser, deleteUser, getAllUsers, getUser, updateUser } from './profile/index.js';
 
 export const router = Router();
-const usersCollection= await getDBCollection();
 
 router.get("/:id", async (request, response) => {
-    const userId = new objectId(request.params.id);
+    const userId = request.params.id as string;
 
-    const user = await (await usersCollection).findOne({ _id: userId });
-
+    const user = await getUser(userId);
     if (!user) { 
        return response.status(400).send("User not found");
     }
@@ -18,7 +15,6 @@ router.get("/:id", async (request, response) => {
 });
 
 router.post('/', async (request, response) => {
-
     if(!request.body) { 
         return response.status(400).send('User Info not found');
     }
@@ -30,17 +26,17 @@ router.post('/', async (request, response) => {
         age: userAge
     };
 
-    const result = await (await usersCollection).insertOne(user);
+    const result = await createUser(user);
     response.json(result);
 });
 
 router.delete("/:id", async (request, response) => {
-    const id = new objectId(request.params.id);
+    const id = request.params.id;
     if (!id) { 
         return response.send("Param id was not found");
     }
 
-    const user = await (await usersCollection).findOneAndDelete({ _id: id });
+    const user = await deleteUser(id);
     if (!user) { 
         return response.status(400).send("User with that id not found");
     }
@@ -55,14 +51,9 @@ router.put('/', async (request, response) => {
 
     const userName = request.body.name;
     const userAge = request.body.age;
-    const userId = new objectId(request.body.id);
+    const userId = request.body.id;
 
-    const user = await (await usersCollection).
-        findOneAndUpdate(
-            { _id: userId },
-            { $set: { name: userName, age: userAge }},
-            { returnDocument: "after" }
-        );
+    const user = await updateUser(userId, { name: userName, age: userAge });
 
     if (!user) { 
        return response.status(400).send("User with that id was not found");
@@ -72,6 +63,6 @@ router.put('/', async (request, response) => {
 });
 
 router.get("/", async (request, response) => {
-    const users = await (await usersCollection).find().toArray();
+    const users = await getAllUsers();
     response.send(users);
 });

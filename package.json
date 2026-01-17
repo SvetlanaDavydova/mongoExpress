@@ -14,7 +14,8 @@
     },
     "scripts": {
         "start": "node dist/src/server.js",
-        "clean": "rimraf dist/src "
+        "clean": "rimraf dist/src ",
+        "compile": "npm run clean && tsc"
     },
     "devDependencies": {
         "@types/express": "^5.0.6"

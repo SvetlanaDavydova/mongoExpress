@@ -1,9 +1,9 @@
-
 import express from "express";
 import { router } from "./userRouter.js";
-
+import dotenv from "dotenv";
 export const app = express();
-console.log()
+
+dotenv.config();
 
 const jsonParser = express.json();
 app.use(jsonParser);

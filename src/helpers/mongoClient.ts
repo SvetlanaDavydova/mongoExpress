@@ -9,7 +9,7 @@ export const getMongoClient = async () : Promise<MongoClient> => {
 
     client = new Promise (async (resolve, reject) => {
         try {
-            const connectionString = "mongodb://Sveta:secret@localhost:27017/";
+            const connectionString = getConnectionString();
 
             const client = await MongoClient.connect(connectionString);
             resolve(client);
@@ -20,4 +20,8 @@ export const getMongoClient = async () : Promise<MongoClient> => {
     });
 
     return client;
+}
+
+const getConnectionString = (): string => {
+    return process.env.MONGO_DB_URI;
 }
